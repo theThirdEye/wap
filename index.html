@@ -1,0 +1,37 @@
+<html lang="ja">
+	<head>
+		<title>WAP</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="Content-Language" content="ja" />
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	</head>
+
+	<body bgcolor="#000000" text="#FFFFFF" onload="init()">
+
+		<CENTER>
+			<br><b>WAPで音声処理</b></br>
+			<canvas id="canvas1" width="800" height="500"></canvas><br>
+			
+		
+			<script type="text/javascript" src="canvas.js">			</script>
+			<script type="text/javascript" src="wap.js">			</script>
+			<script type="text/javascript" src="bufferLoader.js">	</script>
+			<script type="text/javascript" src="mouse.js">			</script>
+			
+		<div>
+			tempo:
+			<input type="text" id="strg" name="name" size="5" value=""/>
+		</div>
+		<div>
+			<input type="button" value="play0" onClick="playSound()" />
+		</div>
+		<div><input type="button" value="stop0" onClick="stopSound()" /></div>
+
+		</form>
+        
+        </CENTER>
+
+
+	</body>
+</html>
