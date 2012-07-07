@@ -1,7 +1,7 @@
 var ctx;
 var canvas;
 var pad;
-var PAD_NUM = 24;
+var PAD_NUM = 9;
 
 /********************************KeyPadのクラス*************************************/
 var Keypad = function(bufNum, x, y, width, height, r, g, b, key) {
