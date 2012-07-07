@@ -34,6 +34,14 @@ function mouseDown(e) {
 	}
 
 	changerLighting(x, y);
+
+	if ( shuffleChanger.isInside(x, y) ) {
+		shuffleOn = shuffleChanger.changer(shuffleOn);
+	}
+	shuffleChanger.switchOnOff(shuffleOn);
+	shuffleChanger.drawChanger(shuffleOn);
+
+
 }
 
 
@@ -162,6 +170,13 @@ function Keyboard(evt) {
 			melodyLoopNum = melodyChanger[3].changer(melodyLoopNum);
 			changeLightingWithPushKey();
 			break;
+
+		case 49:
+			shuffleOn = shuffleChanger.changer(shuffleOn);
+			shuffleChanger.switchOnOff(shuffleOn);
+			shuffleChanger.drawChanger(shuffleOn);
+			break;
+			
 
 		default: break;
 	}

@@ -80,9 +80,21 @@ var rhythmTimer;
 var melodyTimer;
 var rhythmLoopNum = 0;
 var melodyLoopNum = 0;
+var shuffleOn = false;
+var SHFL_CONST = (1/3) - 0.25;
 
 
 function rhythmLoopElement(){
+	var sh, shs;
+	if(shuffleOn) {
+		sh = SHFL_CONST;
+		shs = 0.125 - sh;
+	}
+	else {
+		sh = 0;
+		shs = 0;
+	}
+
 	switch(rhythmLoopNum){
 		case 0:
 			break;
@@ -99,10 +111,10 @@ function rhythmLoopElement(){
 			wap_playSoundWithTime(0,tempo*1.5);
 			//        wap_playSoundWithTime(1,tempo*0.5);
 			//        wap_playSoundWithTime(1,tempo*1.5);
-			wap_playSoundWithTime(5,tempo*0.25);
-			wap_playSoundWithTime(5,tempo*0.75);
-			wap_playSoundWithTime(5,tempo*1.25);
-			wap_playSoundWithTime(5,tempo*1.75);
+			wap_playSoundWithTime(5,tempo*0.25 + sh);
+			wap_playSoundWithTime(5,tempo*0.75 + sh);
+			wap_playSoundWithTime(5,tempo*1.25 + sh);
+			wap_playSoundWithTime(5,tempo*1.75 + sh);
 			break;
 
 		case 3 :
@@ -112,10 +124,10 @@ function rhythmLoopElement(){
 			wap_playSoundWithTime(0,tempo*1.5);
 			wap_playSoundWithTime(1,tempo*0.5);
 			wap_playSoundWithTime(1,tempo*1.5);
-			wap_playSoundWithTime(5,tempo*0.25);
-			wap_playSoundWithTime(5,tempo*0.75);
-			wap_playSoundWithTime(5,tempo*1.25);
-			wap_playSoundWithTime(5,tempo*1.75);
+			wap_playSoundWithTime(5,tempo*0.25 + sh);
+			wap_playSoundWithTime(5,tempo*0.75 + sh);
+			wap_playSoundWithTime(5,tempo*1.25 + sh);
+			wap_playSoundWithTime(5,tempo*1.75 + sh);
 			break;
 
 		case 4 : 
@@ -126,23 +138,22 @@ function rhythmLoopElement(){
 			wap_playSoundWithTime(0,tempo*0);
 			wap_playSoundWithTime(1,tempo*0.5);
 			wap_playSoundWithTime(0,tempo*1.0);
-			wap_playSoundWithTime(0,tempo*1.25);
+			wap_playSoundWithTime(0,tempo*1.25 + sh);
 			wap_playSoundWithTime(1,tempo*1.5);
 			break;
 
 		case 5 :
 			wap_playSoundWithTime(0,tempo*0);
-			wap_playSoundWithTime(0,tempo*0.25);
-			wap_playSoundWithTime(0,tempo*0.6125);
-			wap_playSoundWithTime(0,tempo*0.75);
-			wap_playSoundWithTime(0,tempo*0.75);
+			wap_playSoundWithTime(0,tempo*0.25 + sh);
+			wap_playSoundWithTime(0,tempo*0.6125 + shs);
+			wap_playSoundWithTime(0,tempo*0.75 + sh);
 			wap_playSoundWithTime(0,tempo*1.375);
 			wap_playSoundWithTime(0,tempo*1.4375);
-			wap_playSoundWithTime(0,tempo*1.75);
+			wap_playSoundWithTime(0,tempo*1.75 + sh);
 
 			wap_playSoundWithTime(1,tempo*0.5);
-			wap_playSoundWithTime(1,tempo*0.875);
-			wap_playSoundWithTime(1,tempo*1.125);
+			wap_playSoundWithTime(1,tempo*0.875 - shs);
+			wap_playSoundWithTime(1,tempo*1.125 + shs);
 			wap_playSoundWithTime(1,tempo*1.5);
 			wap_playSoundWithTime(1,tempo*1.625);
 
@@ -151,13 +162,13 @@ function rhythmLoopElement(){
 			wap_playSoundWithTime(2,tempo*1.75+0.25*(2/3));
 
 			wap_playSoundWithTime(5,tempo*0);
-			wap_playSoundWithTime(5,tempo*0.25);
+			wap_playSoundWithTime(5,tempo*0.25 + sh);
 			wap_playSoundWithTime(5,tempo*0.5);
-			wap_playSoundWithTime(5,tempo*0.625);
-			wap_playSoundWithTime(5,tempo*0.75);
-			wap_playSoundWithTime(6,tempo*0.875);
-			wap_playSoundWithTime(5,tempo*1.125);
-			wap_playSoundWithTime(5,tempo*1.25);
+			wap_playSoundWithTime(5,tempo*0.625 + shs);
+			wap_playSoundWithTime(5,tempo*0.75 + sh);
+			wap_playSoundWithTime(6,tempo*0.875 - shs);
+			wap_playSoundWithTime(5,tempo*1.125 + shs);
+			wap_playSoundWithTime(5,tempo*1.25 + sh);
 
 
 		default :
@@ -171,21 +182,68 @@ function rhythmLoopElement(){
 }
 
 function melodyLoopElement() {
+	var sh, shs, shss;
+	if(shuffleOn) {
+		sh = SHFL_CONST;
+		shs = 0.125 - sh;
+		shss = 0.125;
+	}
+	else {
+		sh = 0;
+		shs = 0;
+		shss= 0;
+	}
+
 	switch(melodyLoopNum){
 		case 0 :
 			break;
 
 		case 1 :
 			wap_playSoundWithTime(22,tempo*0);
-			wap_playSoundWithTime(27,tempo*0.25);
+			wap_playSoundWithTime(27,tempo*0.25 + sh);
 			wap_playSoundWithTime(26,tempo*0.5);
-			wap_playSoundWithTime(25,tempo*0.625);
-			wap_playSoundWithTime(24,tempo*0.875);
-			wap_playSoundWithTime(23,tempo*1.125);
-			wap_playSoundWithTime(23,tempo*1.375);
+			wap_playSoundWithTime(25,tempo*0.625 + shs);
+			wap_playSoundWithTime(24,tempo*0.875 - shs);
+			wap_playSoundWithTime(23,tempo*1.125 - shss);
+			wap_playSoundWithTime(23,tempo*1.375 - shs);
 			wap_playSoundWithTime(24,tempo*1.5);
-			wap_playSoundWithTime(25,tempo*1.75);
+			wap_playSoundWithTime(25,tempo*1.75 + sh);
 			break;
+
+
+		case 2 :
+			wap_playSoundWithTime(22,tempo*0);
+			wap_playSoundWithTime(22,tempo*0.25 + sh);
+			//wap_playSoundWithTime(23,tempo*0.5);
+			wap_playSoundWithTime(22,tempo*0.75 + sh);
+			wap_playSoundWithTime(20,tempo*1.0);
+			wap_playSoundWithTime(20,tempo*1.25 + sh);
+			wap_playSoundWithTime(19,tempo*1.5);
+			wap_playSoundWithTime(20,tempo*1.75 + sh);
+			break;
+
+		case 3 :
+			wap_playSoundWithTime(18,tempo*0);
+			wap_playSoundWithTime(19,tempo*0.25 + sh);
+			wap_playSoundWithTime(19,tempo*0.5);
+			wap_playSoundWithTime(19,tempo*0.75 + sh);
+			//wap_playSoundWithTime(19,tempo*1.0);
+			wap_playSoundWithTime(19,tempo*1.25 + sh);
+			//wap_playSoundWithTime(24,tempo*1.5);
+			wap_playSoundWithTime(19,tempo*1.75 + sh);
+			break;
+
+		case 4 :
+			wap_playSoundWithTime(18,tempo*0);
+			wap_playSoundWithTime(19,tempo*0.25 + sh);
+			wap_playSoundWithTime(20,tempo*0.5);
+			wap_playSoundWithTime(21,tempo*0.75 + sh);
+			wap_playSoundWithTime(22,tempo*1.0);
+			wap_playSoundWithTime(18,tempo*1.25 + sh);
+			wap_playSoundWithTime(21,tempo*1.5);
+			wap_playSoundWithTime(22,tempo*1.75 + sh);
+			break;
+
 
 		default :
 			wap_playSoundWithTime(22,tempo*0);
