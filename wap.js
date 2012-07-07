@@ -71,27 +71,86 @@ function wap_playSoundWithTime(bufNum,late) {
 	source.noteOn(wap.currentTime + late);
 
 }
+
+//loopのグローバル変数
 var tempo = 1;
+var rhythmTimer;
+var melodyTimer;
+var rhythmLoopNum = 1;
+var melodyLoopNum = 0;
 
 
-function loopElement(){
-    wap_playSoundWithTime(5,tempo*0);
-    wap_playSoundWithTime(5,tempo*0.5);
-    wap_playSoundWithTime(5,tempo*1.0);
-    wap_playSoundWithTime(5,tempo*1.5);
-    wap_playSoundWithTime(0,tempo*0);
-    wap_playSoundWithTime(1,tempo*0.5);
-    wap_playSoundWithTime(0,tempo*1.0);
-    wap_playSoundWithTime(0,tempo*1.25);
-    wap_playSoundWithTime(1,tempo*1.5);
-}
-var timer;
+function rhythmLoopElement(){
+    switch(rhythmLoopNum){
+    case 1 : 
+        wap_playSoundWithTime(2,tempo*0);
+        wap_playSoundWithTime(5,tempo*1.0);
+        break;
 
-function loop(newTempo){
-    tempo = newTempo;
-    if(timer){
-        clearInterval(timer);
+    case 2 :
+        wap_playSoundWithTime(0,tempo*0);
+        wap_playSoundWithTime(0,tempo*0.5);
+        wap_playSoundWithTime(0,tempo*1.0);
+        wap_playSoundWithTime(0,tempo*1.5);
+//        wap_playSoundWithTime(1,tempo*0.5);
+//        wap_playSoundWithTime(1,tempo*1.5);
+        wap_playSoundWithTime(5,tempo*0.25);
+        wap_playSoundWithTime(5,tempo*0.75);
+        wap_playSoundWithTime(5,tempo*1.25);
+        wap_playSoundWithTime(5,tempo*1.75);
+        break;
+
+    case 3 :
+        wap_playSoundWithTime(0,tempo*0);
+        wap_playSoundWithTime(0,tempo*0.5);
+        wap_playSoundWithTime(0,tempo*1.0);
+        wap_playSoundWithTime(0,tempo*1.5);
+        wap_playSoundWithTime(1,tempo*0.5);
+        wap_playSoundWithTime(1,tempo*1.5);
+        wap_playSoundWithTime(5,tempo*0.25);
+        wap_playSoundWithTime(5,tempo*0.75);
+        wap_playSoundWithTime(5,tempo*1.25);
+        wap_playSoundWithTime(5,tempo*1.75);
+        break;
+
+    case 4 : 
+        wap_playSoundWithTime(5,tempo*0);
+        wap_playSoundWithTime(5,tempo*0.5);
+        wap_playSoundWithTime(5,tempo*1.0);
+        wap_playSoundWithTime(5,tempo*1.5);
+        wap_playSoundWithTime(0,tempo*0);
+        wap_playSoundWithTime(1,tempo*0.5);
+        wap_playSoundWithTime(0,tempo*1.0);
+        wap_playSoundWithTime(0,tempo*1.25);
+        wap_playSoundWithTime(1,tempo*1.5);
+        break;
     }
+}
+
+function melodyLoopElement() {
+    switch(melodyLoopNum){
+        case 1 :
+        wap_playSoundWithTime(22,tempo*0);
+        wap_playSoundWithTime(27,tempo*0.25);
+        wap_playSoundWithTime(26,tempo*0.5);
+        wap_playSoundWithTime(25,tempo*0.625);
+        wap_playSoundWithTime(24,tempo*0.875);
+        wap_playSoundWithTime(23,tempo*1.125);
+        wap_playSoundWithTime(23,tempo*1.375);
+        wap_playSoundWithTime(24,tempo*1.5);
+        wap_playSoundWithTime(25,tempo*1.75);
+        break;
+    }
+}
+function loopElement(){
+    rhythmLoopElement();
+    melodyLoopElement();
+}
+
+function loop(){
+//    if(timer){
+//        clearInterval(timer);
+//    }
     timer = setInterval("loopElement()",tempo*2000);
 }
 
