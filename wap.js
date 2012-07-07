@@ -62,12 +62,39 @@ function wap_playSound(bufNum) {
 	source.noteOn(wap.currentTime);
 
 }
+function wap_playSoundWithTime(bufNum,late) {
+	var source;
+	source = wap.createBufferSource();
+	source.buffer = bufferLoader.bufferList[bufNum];
+	source.loop = false;
+	source.connect(wap.destination);
+	source.noteOn(wap.currentTime + late);
+
+}
+var tempo = 1;
 
 
+function loopElement(){
+    wap_playSoundWithTime(5,tempo*0);
+    wap_playSoundWithTime(5,tempo*0.5);
+    wap_playSoundWithTime(5,tempo*1.0);
+    wap_playSoundWithTime(5,tempo*1.5);
+    wap_playSoundWithTime(0,tempo*0);
+    wap_playSoundWithTime(1,tempo*0.5);
+    wap_playSoundWithTime(0,tempo*1.0);
+    wap_playSoundWithTime(0,tempo*1.25);
+    wap_playSoundWithTime(1,tempo*1.5);
+}
+var timer;
+
+function loop(newTempo){
+    tempo = newTempo;
+    if(timer){
+        clearInterval(timer);
+    }
+    timer = setInterval("loopElement()",tempo*2000);
+}
 
 function wap_stopSound(source) {
 	source.noteOff(0);
 }
-
-
-

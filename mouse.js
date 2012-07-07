@@ -1,12 +1,8 @@
 var mouse = { x: null, y: null };
 
-
-
 function mouse_init() {
 	registerMouseEvent();
 }
-
-
 
 function registerMouseEvent() {
 	canvas.addEventListener("mousedown", function(e) {
@@ -47,11 +43,6 @@ var getMousePos = function(e) {
 
 	return mouse;
 }
-
-
-
-
-
 
 document.onkeydown = Keyboard;
 function Keyboard(evt) {
