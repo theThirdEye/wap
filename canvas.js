@@ -2,6 +2,10 @@ var ctx;
 var canvas;
 var pad;
 var PAD_NUM = 27;
+var rhythmChanger;
+var RHYTHM_CHANGER_NUM = 5;
+var melodyChanger;
+var MELODY_CHANGER_NUM = 4;
 
 
 
@@ -19,12 +23,13 @@ var Keypad = function(bufNum, x, y, width, height, r, g, b, key) {
 
 	this.brightness;
 	this.lighting = 0;
+	this.switchOn = false;
 };
 
 //描画メソッド
 Keypad.prototype.draw = function() {
 	ctx.beginPath();
-	ctx.clearRect(this.x, this.y, this.width, this.height);
+	ctx.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
 	this.brightness = 0.2 + 0.8*(this.lighting/15);
 	ctx.fillStyle = this.color + this.brightness +")";
 	ctx.fillRect(this.x, this.y, this.width, this.height);
@@ -36,6 +41,24 @@ Keypad.prototype.draw = function() {
 	ctx.fillText(this.key,this.x+this.width/2-3, this.y+this.height/2+3);
 	ctx.closePath();
 };
+
+Keypad.prototype.drawChanger = function() {
+
+	ctx.beginPath();
+	ctx.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
+	if(this.switchOn) this.brightness = 0.9;
+	else this.brightness = 0.2;
+	ctx.fillStyle = this.color + this.brightness +")";
+	ctx.fillRect(this.x, this.y, this.width, this.height);
+	ctx.strokeStyle = this.color + "0.9)";
+	ctx.strokeRect(this.x, this.y, this.width, this.height);
+
+	ctx.fillStyle = "rgba(255,255,255,1)";
+	ctx.font = "11pt Times";
+	ctx.fillText(this.key,this.x+this.width/2-3, this.y+this.height/2+3);
+	ctx.closePath();
+};
+
 
 //内外判定メソッド
 Keypad.prototype.isInside = function(x0, y0) {
@@ -55,10 +78,35 @@ Keypad.prototype.isInside = function(x0, y0) {
 };
 
 
+
 //padが押されたときの動作
 Keypad.prototype.push = function() {
 	this.lighting = 15;
 	wap_playSound(this.bufNum);
+};
+
+
+
+Keypad.prototype.changer = function(num) {
+	if(num == this.bufNum) {
+		this.switchOn = false;
+		return 0;
+	}
+	else {
+		this.switchOn = true;
+		return this.bufNum;
+	}
+};
+
+
+
+Keypad.prototype.switchOnOff = function(num) {
+	if(num == this.bufNum) {
+		//this.switchOn = true;
+	}
+	else {
+		this.switchOn = false;
+	}
 };
 /*********************************************************************************/
 
@@ -77,8 +125,8 @@ function canvas_init() {
 	pad[ 2] = new Keypad(30, 170, 250, 60, 60, 255, 0, 0, "e");
 	pad[ 3] = new Keypad(31, 250, 250, 60, 60, 255, 0, 0, "r");
 	pad[ 4] = new Keypad(32, 330, 250, 60, 60, 255, 0, 0, "t");
-	pad[ 5] = new Keypad(9, 410, 250, 60, 60, 80, 80, 80, "y");
-	pad[ 6] = new Keypad(9, 490, 250, 60, 60, 80, 80, 80, "u");
+	pad[ 5] = new Keypad(1, 410, 250, 60, 60, 255, 255, 0, "y");
+	pad[ 6] = new Keypad(5, 490, 250, 60, 60, 255, 255, 0, "u");
 	pad[ 7] = new Keypad(15, 570, 250, 60, 60, 0, 255, 0, "i");
 	pad[ 8] = new Keypad(16, 650, 250, 60, 60, 0, 255, 0, "o");
 	pad[ 9] = new Keypad(17, 730, 250, 60, 60, 0, 255, 0, "p");
@@ -88,7 +136,7 @@ function canvas_init() {
 	pad[12] = new Keypad(25, 210, 330, 60, 60, 255, 0, 0, "d");
 	pad[13] = new Keypad(26, 290, 330, 60, 60, 255, 0, 0, "f");
 	pad[14] = new Keypad(27, 370, 330, 60, 60, 255, 0, 0, "g");
-	pad[15] = new Keypad(9, 450, 330, 60, 60, 80, 80, 80, "h");
+	pad[15] = new Keypad(0, 450, 330, 60, 60, 255, 255, 0, "h");
 	pad[16] = new Keypad(12, 530, 330, 60, 60, 0, 0, 255, "j");
 	pad[17] = new Keypad(13, 610, 330, 60, 60, 0, 0, 255, "k");
 	pad[18] = new Keypad(14, 690, 330, 60, 60, 0, 0, 255, "l");
@@ -102,6 +150,19 @@ function canvas_init() {
 	pad[25] = new Keypad(10, 570, 410, 60, 60, 0, 0, 255, "m");
 	pad[26] = new Keypad(11, 650, 410, 60, 60, 0, 0, 255, ",");
 
+	
+	rhythmChanger = new Array(5);
+	rhythmChanger[0] = new Keypad(1,  50, 170, 60, 60, 0, 255, 255, "2");
+	rhythmChanger[1] = new Keypad(2, 130, 170, 60, 60, 0, 255, 255, "3");
+	rhythmChanger[2] = new Keypad(3, 210, 170, 60, 60, 0, 255, 255, "4");
+	rhythmChanger[3] = new Keypad(4, 290, 170, 60, 60, 0, 255, 255, "5");
+	rhythmChanger[4] = new Keypad(5, 370, 170, 60, 60, 0, 255, 255, "6");
+
+	melodyChanger = new Array(4);
+	melodyChanger[0] = new Keypad(1, 450, 170, 60, 60, 255, 0, 255, "7");
+	melodyChanger[1] = new Keypad(2, 530, 170, 60, 60, 255, 0, 255, "8");
+	melodyChanger[2] = new Keypad(3, 610, 170, 60, 60, 255, 0, 255, "9");
+	melodyChanger[3] = new Keypad(4, 690, 170, 60, 60, 255, 0, 255, "0");
 	
 	drawAllPads();
 	
@@ -121,11 +182,17 @@ function lighting() {
 
 
 function drawAllPads() {
-	//ctx.clearRect(0, 0, canvas.width, canvas.height);
-	drawCanvasStroke();
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	//drawCanvasStroke();
 
 	for(var i=0; i<PAD_NUM; i++) {
 		pad[i].draw();
+	}
+	for(var i=0; i<RHYTHM_CHANGER_NUM; i++) {
+		rhythmChanger[i].drawChanger();
+	}
+	for(var i=0; i<MELODY_CHANGER_NUM; i++) {
+		melodyChanger[i].drawChanger();
 	}	
 }
 
