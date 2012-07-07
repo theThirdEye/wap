@@ -100,8 +100,10 @@ function rhythmLoopElement(){
 			break;
 
 		case 1 : 
-			wap_playSoundWithTime(2,tempo*0);
+			wap_playSoundWithTime(5,tempo*0);
+			wap_playSoundWithTime(5,tempo*0.5);
 			wap_playSoundWithTime(5,tempo*1.0);
+			wap_playSoundWithTime(5,tempo*1.5);
 			break;
 
 		case 2 :
@@ -147,19 +149,19 @@ function rhythmLoopElement(){
 			wap_playSoundWithTime(0,tempo*0.25 + sh);
 			wap_playSoundWithTime(0,tempo*0.6125 + shs);
 			wap_playSoundWithTime(0,tempo*0.75 + sh);
-			wap_playSoundWithTime(0,tempo*1.375);
-			wap_playSoundWithTime(0,tempo*1.4375);
+			wap_playSoundWithTime(0,tempo*1.375 - shs);
+			//wap_playSoundWithTime(0,tempo*1.4375);
 			wap_playSoundWithTime(0,tempo*1.75 + sh);
 
 			wap_playSoundWithTime(1,tempo*0.5);
 			wap_playSoundWithTime(1,tempo*0.875 - shs);
 			wap_playSoundWithTime(1,tempo*1.125 + shs);
+			wap_playSoundWithTime(1,tempo*1.375 - shs);
 			wap_playSoundWithTime(1,tempo*1.5);
-			wap_playSoundWithTime(1,tempo*1.625);
 
-			wap_playSoundWithTime(4,tempo*1.75);
-			wap_playSoundWithTime(3,tempo*1.75+0.25*(1/3));
-			wap_playSoundWithTime(2,tempo*1.75+0.25*(2/3));
+			wap_playSoundWithTime(4,tempo*1.5);
+			wap_playSoundWithTime(3,tempo*1.625 + shs);
+			wap_playSoundWithTime(2,tempo*1.75 + sh);
 
 			wap_playSoundWithTime(5,tempo*0);
 			wap_playSoundWithTime(5,tempo*0.25 + sh);

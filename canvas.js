@@ -24,6 +24,7 @@ var Keypad = function(bufNum, x, y, width, height, r, g, b, key) {
 
 	this.brightness;
 	this.lighting = 0;
+	this.strokeLighting = 0;
 	this.switchOn = false;
 };
 
@@ -31,10 +32,13 @@ var Keypad = function(bufNum, x, y, width, height, r, g, b, key) {
 Keypad.prototype.draw = function() {
 	ctx.beginPath();
 	ctx.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
+	
 	this.brightness = 0.2 + 0.8*(this.lighting/15);
 	ctx.fillStyle = this.color + this.brightness +")";
 	ctx.fillRect(this.x, this.y, this.width, this.height);
-	ctx.strokeStyle = this.color + "0.9)";
+
+	var strokeBright = 0.3 + 0.7*(this.strokeLighting/10);
+	ctx.strokeStyle = this.color + strokeBright + ")";
 	ctx.strokeRect(this.x, this.y, this.width, this.height);
 
 	ctx.fillStyle = "rgba(255,255,255,1)";
@@ -47,11 +51,14 @@ Keypad.prototype.drawChanger = function() {
 
 	ctx.beginPath();
 	ctx.clearRect(this.x-1, this.y-1, this.width+2, this.height+2);
+
 	if(this.switchOn) this.brightness = 0.9;
 	else this.brightness = 0.2;
 	ctx.fillStyle = this.color + this.brightness +")";
 	ctx.fillRect(this.x, this.y, this.width, this.height);
-	ctx.strokeStyle = this.color + "0.9)";
+	
+	var strokeBright = 0.3 + 0.7*(this.strokeLighting/10);
+	ctx.strokeStyle = this.color + strokeBright + ")";
 	ctx.strokeRect(this.x, this.y, this.width, this.height);
 
 	ctx.fillStyle = "rgba(255,255,255,1)";
@@ -118,7 +125,8 @@ function canvas_init() {
 	canvas = document.getElementById("canvas1");
 	ctx    = canvas.getContext("2d");
 	
-	setInterval("lighting()", 50);	
+	setInterval("lighting()", 50);
+	setInterval("tempoKeeper()", tempo*500);	
 	
 	pad = new Array(PAD_NUM);
 	pad[ 0] = new Keypad(28,  50, 250, 60, 60, 255, 0, 0, "q");
@@ -178,9 +186,38 @@ function lighting() {
 	for(var i=0; i<PAD_NUM; i++) {
 		if(pad[i].lighting != 0){
 			pad[i].lighting--;
-			pad[i].draw();
+			//pad[i].draw();
 		}
+		pad[i].strokeLighting--;
 	}
+	for(var i=0; i<RHYTHM_CHANGER_NUM; i++) {
+		rhythmChanger[i].strokeLighting--;
+	}
+	for(var i=0; i<MELODY_CHANGER_NUM; i++) {
+		melodyChanger[i].strokeLighting--;
+	}
+	shuffleChanger.strokeLighting--;
+
+
+
+
+	drawAllPads();
+}
+
+
+
+function tempoKeeper() {
+	for(var i=0; i<PAD_NUM; i++) {
+		pad[i].strokeLighting = 10;
+	}
+	for(var i=0; i<RHYTHM_CHANGER_NUM; i++) {
+		rhythmChanger[i].strokeLighting = 10;
+	}
+	for(var i=0; i<MELODY_CHANGER_NUM; i++) {
+		melodyChanger[i].strokeLighting = 10;
+	}
+	shuffleChanger.strokeLighting = 10;
+
 }
 
 
@@ -201,6 +238,7 @@ function drawAllPads() {
 
 	shuffleChanger.drawChanger();	
 }
+
 
 
 function drawCanvasStroke() {
