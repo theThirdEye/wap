@@ -1,13 +1,13 @@
 var ctx;
 var canvas;
 var pad;
-var PAD_NUM = 27;
+var PAD_NUM = 28;
 var rhythmChanger;
 var RHYTHM_CHANGER_NUM = 5;
 var melodyChanger;
 var MELODY_CHANGER_NUM = 4;
 var shuffleChanger;
-
+var keeper;
 
 
 
@@ -67,7 +67,6 @@ Keypad.prototype.drawChanger = function() {
 	ctx.closePath();
 };
 
-
 //内外判定メソッド
 Keypad.prototype.isInside = function(x0, y0) {
 	//padの左上端の座標
@@ -120,13 +119,19 @@ Keypad.prototype.switchOnOff = function(num) {
 
 
 
+function keeperLoop(){
+	keeper = setInterval("tempoKeeper()", tempo*500);	
+}
+
+
+
 //Canvasの初期化(window.onload関数群の1つ)
 function canvas_init() {
 	canvas = document.getElementById("canvas1");
 	ctx    = canvas.getContext("2d");
 	
 	setInterval("lighting()", 50);
-	setInterval("tempoKeeper()", tempo*500);	
+	keeperLoop();
 	
 	pad = new Array(PAD_NUM);
 	pad[ 0] = new Keypad(28,  50, 90, 60, 60, 255, 0, 0, "q");
@@ -134,21 +139,21 @@ function canvas_init() {
 	pad[ 2] = new Keypad(30, 210, 90, 60, 60, 255, 0, 0, "e");
 	pad[ 3] = new Keypad(31, 290, 90, 60, 60, 255, 0, 0, "r");
 	pad[ 4] = new Keypad(32, 370, 90, 60, 60, 255, 0, 0, "t");
-	pad[ 5] = new Keypad(1, 450, 90, 60, 60, 255, 255, 0, "y");
-	pad[ 6] = new Keypad(5, 530, 90, 60, 60, 255, 255, 0, "u");
-	pad[ 7] = new Keypad(15, 610, 90, 60, 60, 0, 255, 0, "i");
-	pad[ 8] = new Keypad(16, 690, 90, 60, 60, 0, 255, 0, "o");
-	pad[ 9] = new Keypad(17, 770, 90, 60, 60, 0, 255, 0, "p");
+	pad[ 5] = new Keypad(15, 450, 90, 60, 60, 0, 255, 0, "y");
+	pad[ 6] = new Keypad(16, 530, 90, 60, 60, 0, 255, 0, "u");
+	pad[ 7] = new Keypad(17, 610, 90, 60, 60, 0, 255, 0, "i");
+	pad[ 8] = new Keypad(5, 690, 90, 60, 60, 255, 255, 0, "o");
+	pad[ 9] = new Keypad(8, 770, 90, 60, 60, 255, 255, 0, "p");
 	
 	pad[10] = new Keypad(23,  90, 170, 60, 60, 255, 0, 0, "a");
 	pad[11] = new Keypad(24, 170, 170, 60, 60, 255, 0, 0, "s");
 	pad[12] = new Keypad(25, 250, 170, 60, 60, 255, 0, 0, "d");
 	pad[13] = new Keypad(26, 330, 170, 60, 60, 255, 0, 0, "f");
 	pad[14] = new Keypad(27, 410, 170, 60, 60, 255, 0, 0, "g");
-	pad[15] = new Keypad(0, 490, 170, 60, 60, 255, 255, 0, "h");
-	pad[16] = new Keypad(12, 570, 170, 60, 60, 0, 0, 255, "j");
-	pad[17] = new Keypad(13, 650, 170, 60, 60, 0, 0, 255, "k");
-	pad[18] = new Keypad(14, 730, 170, 60, 60, 0, 0, 255, "l");
+	pad[15] = new Keypad(12, 490, 170, 60, 60, 0, 0, 255, "h");
+	pad[16] = new Keypad(13, 570, 170, 60, 60, 0, 0, 255, "j");
+	pad[17] = new Keypad(14, 650, 170, 60, 60, 0, 0, 255, "k");
+	pad[18] = new Keypad(1, 730, 170, 60, 60, 255, 255, 0, "l");
 
 	pad[19] = new Keypad(18, 130, 250, 60, 60, 255, 0, 0, "z");
 	pad[20] = new Keypad(19, 210, 250, 60, 60, 255, 0, 0, "x");
@@ -158,6 +163,7 @@ function canvas_init() {
 	pad[24] = new Keypad( 9, 530, 250, 60, 60, 0, 0, 255, "n");
 	pad[25] = new Keypad(10, 610, 250, 60, 60, 0, 0, 255, "m");
 	pad[26] = new Keypad(11, 690, 250, 60, 60, 0, 0, 255, ",");
+	pad[27] = new Keypad(0, 770, 250, 60, 60, 255, 255, 0, ".");
 	
 	rhythmChanger = new Array(5);
 	rhythmChanger[0] = new Keypad(1, 90, 10, 60, 60, 0, 255, 255, "2");
@@ -173,7 +179,6 @@ function canvas_init() {
 	melodyChanger[3] = new Keypad(4, 730, 10, 60, 60, 255, 0, 255, "0");
 
 	shuffleChanger = new Keypad(true, 10, 10, 60, 60, 255, 255, 255, "1");
-
 	
 	drawAllPads();
 	
@@ -196,9 +201,6 @@ function lighting() {
 		melodyChanger[i].strokeLighting--;
 	}
 	shuffleChanger.strokeLighting--;
-
-
-
 
 	drawAllPads();
 }
