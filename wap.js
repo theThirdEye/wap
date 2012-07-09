@@ -265,6 +265,9 @@ function loop(){
 	//    }
 	timer = setInterval("loopElement()",tempo*2000);
 }
+function loopOut(loopVar) {
+	clearInterval(loopVar);
+}
 
 function wap_stopSound(source) {
 	source.noteOff(0);
