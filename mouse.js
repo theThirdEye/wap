@@ -13,13 +13,13 @@ function registerMouseEvent() {
 			mouseDown(e);
 			}, false);
 
-	canvas.addEventListener("mousemove", function(e) {
+	//canvas.addEventListener("mousemove", function(e) {
 			//mouseMove(e);
-			}, false);
+	//		}, false);
 
-	canvas.addEventListener("mouseup"  , function(e) {
+	//canvas.addEventListener("mouseup"  , function(e) {
 			//mouseUp(e);
-			}, false);
+	//		}, false);
 }
 
 
