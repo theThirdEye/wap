@@ -5,6 +5,8 @@ function demoplayLoop() {
 	ryhthmLoopNum = 0;
 	melodyLoopNum = 0;
 	shuffleOn = false;
+
+	clearInterval(demoplayTimer);
 	demoplayTimer = setInterval("demoplay()",tempo*500/4);
 }
 function demoplayClearLoop() {

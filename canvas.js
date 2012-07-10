@@ -7,6 +7,7 @@ var RHYTHM_CHANGER_NUM = 5;
 var melodyChanger;
 var MELODY_CHANGER_NUM = 4;
 var shuffleChanger;
+var demoplayer;
 var keeper;
 
 
@@ -115,6 +116,10 @@ Keypad.prototype.switchOnOff = function(num) {
 		this.switchOn = false;
 	}
 };
+
+Keypad.prototype.startDemoplay = function() {
+	demoplayLoop();
+};
 /*********************************************************************************/
 
 
@@ -179,6 +184,8 @@ function canvas_init() {
 	melodyChanger[3] = new Keypad(4, 730, 10, 60, 60, 255, 0, 255, "0");
 
 	shuffleChanger = new Keypad(true, 10, 10, 60, 60, 255, 255, 255, "1");
+
+	demoplayer = new Keypad(null, 810, 10, 60, 60, 120, 120, 120, "-");
 	
 	drawAllPads();
 	
@@ -237,7 +244,10 @@ function drawAllPads() {
 		melodyChanger[i].drawChanger();
 	}
 
-	shuffleChanger.drawChanger();	
+	shuffleChanger.drawChanger();
+
+	demoplayer.draw();
+		
 }
 
 

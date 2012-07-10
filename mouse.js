@@ -37,6 +37,10 @@ function mouseDown(e) {
 		}
 	}
 
+	if( demoplayer.isInside(x, y) ) {
+		demoplayLoop();
+	}
+
 	changerLighting(x, y);
 
 	if ( shuffleChanger.isInside(x, y) ) {
@@ -203,6 +207,10 @@ function Keyboard(evt) {
 				shuffleOn = shuffleChanger.changer(shuffleOn);
 				shuffleChanger.switchOnOff(shuffleOn);
 				shuffleChanger.drawChanger(shuffleOn);
+				break;
+
+			case 189:
+				demoplayLoop();
 				break;
 
 			default: break;
