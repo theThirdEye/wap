@@ -13,13 +13,13 @@ function registerMouseEvent() {
 			mouseDown(e);
 			}, false);
 
-	canvas.addEventListener("mousemove", function(e) {
+	//canvas.addEventListener("mousemove", function(e) {
 			//mouseMove(e);
-			}, false);
+	//		}, false);
 
-	canvas.addEventListener("mouseup"  , function(e) {
+	//canvas.addEventListener("mouseup"  , function(e) {
 			//mouseUp(e);
-			}, false);
+	//		}, false);
 }
 
 
@@ -35,6 +35,10 @@ function mouseDown(e) {
 		if( pad[i].isInside(x, y) ){
 			pad[i].push();
 		}
+	}
+
+	if( demoplayer.isInside(x, y) ) {
+		demoplayLoop();
 	}
 
 	changerLighting(x, y);
@@ -203,6 +207,10 @@ function Keyboard(evt) {
 				shuffleOn = shuffleChanger.changer(shuffleOn);
 				shuffleChanger.switchOnOff(shuffleOn);
 				shuffleChanger.drawChanger(shuffleOn);
+				break;
+
+			case 189:
+				demoplayLoop();
 				break;
 
 			default: break;

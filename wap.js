@@ -5,6 +5,7 @@ window.onload = function(){
 }
 
 
+
 var wap;
 var bufferLoader;
 
@@ -62,8 +63,10 @@ function wap_playSound(bufNum) {
 	source.loop = false;
 	source.connect(wap.destination);
 	source.noteOn(wap.currentTime);
-
 }
+
+
+
 function wap_playSoundWithTime(bufNum,late) {
 	var source;
 	source = wap.createBufferSource();
@@ -74,6 +77,8 @@ function wap_playSoundWithTime(bufNum,late) {
 
 }
 
+
+
 //loopのグローバル変数
 var tempo = 1;
 var rhythmTimer;
@@ -82,6 +87,7 @@ var rhythmLoopNum = 0;
 var melodyLoopNum = 0;
 var shuffleOn = false;
 var SHFL_CONST = (1/3) - 0.25;
+
 
 
 function rhythmLoopElement(){
@@ -254,10 +260,15 @@ function melodyLoopElement() {
 			wap_playSoundWithTime(22,tempo*1.5);
 	}
 }
+
+
+
 function loopElement(){
 	rhythmLoopElement();
 	melodyLoopElement();
 }
+
+
 
 function loop(){
 	//    if(timer){
@@ -265,9 +276,14 @@ function loop(){
 	//    }
 	timer = setInterval("loopElement()",tempo*2000);
 }
+
+
+
 function loopOut(loopVar) {
 	clearInterval(loopVar);
 }
+
+
 
 function wap_stopSound(source) {
 	source.noteOff(0);

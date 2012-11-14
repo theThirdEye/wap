@@ -7,6 +7,7 @@ var RHYTHM_CHANGER_NUM = 5;
 var melodyChanger;
 var MELODY_CHANGER_NUM = 4;
 var shuffleChanger;
+var demoplayer;
 var keeper;
 
 
@@ -84,16 +85,13 @@ Keypad.prototype.isInside = function(x0, y0) {
 	}
 };
 
-
-
 //padが押されたときの動作
 Keypad.prototype.push = function() {
 	this.lighting = 15;
 	wap_playSound(this.bufNum);
 };
 
-
-
+//リズムチェンジャーが押されたときの処理
 Keypad.prototype.changer = function(num) {
 	if(num == this.bufNum) {
 		this.switchOn = false;
@@ -105,8 +103,7 @@ Keypad.prototype.changer = function(num) {
 	}
 };
 
-
-
+//リズムチェンジャーのスイッチオンオフ判定
 Keypad.prototype.switchOnOff = function(num) {
 	if(num == this.bufNum) {
 		this.switchOn = true;
@@ -115,13 +112,8 @@ Keypad.prototype.switchOnOff = function(num) {
 		this.switchOn = false;
 	}
 };
+
 /*********************************************************************************/
-
-
-
-function keeperLoop(){
-	keeper = setInterval("tempoKeeper()", tempo*500);	
-}
 
 
 
@@ -179,9 +171,16 @@ function canvas_init() {
 	melodyChanger[3] = new Keypad(4, 730, 10, 60, 60, 255, 0, 255, "0");
 
 	shuffleChanger = new Keypad(true, 10, 10, 60, 60, 255, 255, 255, "1");
+
+	demoplayer = new Keypad(null, 810, 10, 60, 60, 120, 120, 120, "-");
 	
 	drawAllPads();
-	
+}
+
+
+
+function keeperLoop(){
+	keeper = setInterval("tempoKeeper()", tempo*500);	
 }
 
 
@@ -225,7 +224,6 @@ function tempoKeeper() {
 
 function drawAllPads() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
-	//drawCanvasStroke();
 
 	for(var i=0; i<PAD_NUM; i++) {
 		pad[i].draw();
@@ -237,7 +235,9 @@ function drawAllPads() {
 		melodyChanger[i].drawChanger();
 	}
 
-	shuffleChanger.drawChanger();	
+	shuffleChanger.drawChanger();
+
+	demoplayer.draw();
 }
 
 
@@ -248,8 +248,3 @@ function drawCanvasStroke() {
 	ctx.strokeRect(0, 0, canvas.width, canvas.height);
 	ctx.closePath();
 };
-
-
-
-
-
